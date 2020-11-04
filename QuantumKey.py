@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 ############################################################
 # Alice's Knowledge | Over Eve's Channel | Bob's Knowledge #
 ############################################################
@@ -21,7 +18,6 @@
 ############################################################
 
 
-# In[2]:
 
 
 get_ipython().run_line_magic('matplotlib', 'inline')
@@ -37,10 +33,6 @@ from qiskit.visualization import plot_histogram, plot_bloch_multivector
 from numpy.random import randint
 import numpy as np
 
-
-# In[3]:
-
-
 np.random.seed(0)
 
 bitsLen = 100
@@ -50,18 +42,12 @@ alice_bits = randint(2, size=bitsLen)
 print("Alice's bits: " + str(alice_bits))
 
 
-# In[4]:
-
-
 #Step 2: Create an array of qubit bases
 # 0 or 1 represent bases
 # Z- or X-
 # on which a qubit is encoded, respectively
 alice_bases = randint(2, size=bitsLen)
 print("Alice's bases: " + str(alice_bases))
-
-
-# In[5]:
 
 
 #Function to encode message based on qubit
@@ -87,9 +73,6 @@ def encode_message(bits, bases):
     return message
 
 
-# In[6]:
-
-
 #Step 3: Encode Alice's 100 bits based on encoding bases
 message = encode_message(alice_bits, alice_bases)
 
@@ -97,9 +80,6 @@ print('bit = %i' % alice_bits[0])
 print('basis = %i' % alice_bases[0])
 
 message[0].draw()
-
-
-# In[7]:
 
 
 #Function to apply recipient's bases and simualte qubit measurement results
@@ -120,16 +100,10 @@ def measure_message(message, bases):
     return measurements
 
 
-# In[8]:
-
-
 #Step 4: Bob decides which basis to measure in
 bob_bases = randint(2, size=bitsLen)
 
 print("Bob's bases: " + str(bob_bases))
-
-
-# In[9]:
 
 
 #Step 5: Bob measures each qubit in message with his bases
@@ -137,9 +111,6 @@ bob_results = measure_message(message, bob_bases)
 
 print("Bob's measurement results: " + str(bob_results))
 message[0].draw()
-
-
-# In[10]:
 
 
 #For every basis in bob_bases that matched alice_bases, 
@@ -156,18 +127,12 @@ def remove_garbage(a_bases, b_bases, bits):
     return key_bits
 
 
-# In[11]:
-
-
 #Step 6: Alice and Bob create their keys by calling remove_garbage
 alice_key = remove_garbage(alice_bases, bob_bases, alice_bits)
 bob_key = remove_garbage(alice_bases, bob_bases, bob_results)
 
 print("Alice's key: " + str(alice_key))
 print("\nBob's key: " + str(bob_key))
-
-
-# In[12]:
 
 
 #Function to compare random selection of bits in keys 
@@ -180,9 +145,6 @@ def sample_bits(bits, selection):
         i = np.mod(i, len(bits))
         sample.append(bits.pop(i))
     return sample
-
-
-# In[13]:
 
 
 #Step 7: Test to see if keygen worked and remove sample bits
@@ -198,11 +160,7 @@ print("\nbob_sample =?= alice_sample ")
 print(bob_sample == alice_sample)
 
 
-# In[14]:
-
-
 #Alice and Bob both have the same shared key
 print("Alice's key: " + str(alice_key))
 print("\nBob's key: " + str(bob_key))
 print("\nKey length = %i" % len(alice_key))
-
